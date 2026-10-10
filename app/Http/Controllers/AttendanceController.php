@@ -205,6 +205,6 @@ class AttendanceController extends Controller
                 'method' => 'automatic',
             ]);
         });
-        return redirect()->route('admin.attendance.index')->with('status', 'Walk-in recorded. ₱120.00 payment recorded automatically.');
+        return redirect()->route('admin.dashboard')->with('status', 'Walk-in recorded. ₱120.00 payment recorded automatically.');
     }
 }

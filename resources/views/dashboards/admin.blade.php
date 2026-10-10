@@ -16,55 +16,69 @@
             <div class="notice success" role="status">{{ session('status') }}</div>
         @endif
 
-        <div class="admin-overview">
-            <article class="admin-overview-card">
-                <span>REGISTERED MEMBERS</span>
-                <strong>{{ $memberCount }}</strong>
-                <p>Members with access to the gym system</p>
-            </article>
+        @if ($errors->any())
+            <div class="notice error" role="alert">{{ $errors->first() }}</div>
+        @endif
 
-            <section class="admin-scanner-card" aria-label="Member QR scanner">
-                <div class="admin-scanner-heading">
-                    <div>
-                        <p class="kicker">MEMBER ATTENDANCE</p>
-                        <p class="admin-scanner-help">
-                            Scan a member's QR code to record check-in or check-out.
-                        </p>
+        <div class="admin-dashboard-layout">
+            <div class="admin-dashboard-left">
+                <article class="admin-overview-card">
+                    <span>REGISTERED MEMBERS</span>
+                    <strong>{{ $memberCount }}</strong>
+                    <p>Members with access to the gym system</p>
+                </article>
+
+                <nav class="admin-shortcuts" aria-label="Gym management">
+                    <a href="{{ route('admin.memberships.index') }}">
+                        <i class="fi fi-br-dumbbell-fitness shortcut-icon" aria-hidden="true"></i>
+                        <strong>Memberships</strong>
+                        <small>Plans and reminders</small>
+                    </a>
+                    <a href="{{ route('admin.attendance.index') }}">
+                        <i class="fi fi-br-calendar shortcut-icon" aria-hidden="true"></i>
+                        <strong>Attendance</strong>
+                        <small>Attendance history</small>
+                    </a>
+                    <a href="{{ route('admin.payments.index') }}">
+                        <i class="fi fi-br-wallet shortcut-icon" aria-hidden="true"></i>
+                        <strong>Payments</strong>
+                        <small>Collected totals and history</small>
+                    </a>
+                    <a href="{{ route('admin.members.index') }}">
+                        <i class="fi fi-br-users-gear shortcut-icon" aria-hidden="true"></i>
+                        <strong>Member accounts</strong>
+                        <small>Review and manage</small>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="admin-dashboard-right">
+                <section class="admin-walkin-card" aria-labelledby="walkin-heading">
+                    <h2 id="walkin-heading">Record a walk-in</h2>
+                    <p class="card-help">Walk-in rate: ₱120.00. Payment is recorded automatically.</p>
+                    <form method="POST" action="{{ route('admin.attendance.walk-in') }}">
+                        @csrf
+                        <label for="walk-in-name">Visitor name</label>
+                        <input id="walk-in-name" name="walk_in_name" required maxlength="255"
+                            value="{{ old('walk_in_name') }}" placeholder="Full name">
+                        <button class="primary-button" type="submit">Record walk-in and payment</button>
+                    </form>
+                </section>
+
+                <section class="admin-scanner-card" aria-label="Member QR scanner">
+                    <div class="admin-scanner-heading">
+                        <div>
+                            <p class="kicker">SCAN QR CODE</p>
+                            <p class="admin-scanner-help">Scan a member's QR code to record check-in or check-out.</p>
+                        </div>
+                        <p><strong id="today-count">{{ $todayCount }}</strong> check-ins today</p>
                     </div>
-                    <p>
-                        <strong id="today-count">{{ $todayCount }}</strong>
-                        check-ins today
-                    </p>
-                </div>
-
-                <a class="primary-button admin-scanner-launch" href="{{ route('admin.attendance.scanner') }}">
-                    Open QR code scanner
-                </a>
-            </section>
+                    <a class="primary-button admin-scanner-launch" href="{{ route('admin.attendance.scanner') }}">
+                        Open QR code scanner
+                    </a>
+                </section>
+            </div>
         </div>
-
-        <nav class="admin-shortcuts" aria-label="Gym management">
-            <a href="{{ route('admin.memberships.index') }}">
-                <i class="fi fi-br-dumbbell-fitness shortcut-icon" aria-hidden="true"></i>
-                <strong>Memberships</strong>
-                <small>Plans and reminders</small>
-            </a>
-            <a href="{{ route('admin.attendance.index') }}">
-                <i class="fi fi-br-calendar shortcut-icon" aria-hidden="true"></i>
-                <strong>Attendance</strong>
-                <small>Record a walk-in and Attendance History</small>
-            </a>
-            <a href="{{ route('admin.payments.index') }}">
-                <i class="fi fi-br-wallet shortcut-icon" aria-hidden="true"></i>
-                <strong>Payments</strong>
-                <small>Collected totals and history</small>
-            </a>
-            <a href="{{ route('admin.members.index') }}">
-                <i class="fi fi-br-users-gear shortcut-icon" aria-hidden="true"></i>
-                <strong>Member accounts</strong>
-                <small>Review and manage</small>
-            </a>
-        </nav>
 
         <section class="admin-registration-panel" aria-labelledby="pending-heading">
             <div class="admin-panel-heading">

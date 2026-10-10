@@ -2186,7 +2186,7 @@ html[data-theme="dark"] .status-pill.expiring {
     font-weight: 700;
 }
 .attendance-dashboard .attendance-management-grid {
-    grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
 }
 .attendance-dashboard .attendance-management-grid .management-card {
@@ -2429,4 +2429,125 @@ main h3 {
 .forgot-password-link:hover,
 .forgot-password-link:focus-visible {
     text-decoration: underline;
+}
+
+.admin-dashboard-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    align-items: stretch;
+    gap: clamp(16px, 2vw, 28px);
+    margin: 22px 0 24px;
+}
+.admin-dashboard-left,
+.admin-dashboard-right {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 12px;
+}
+.admin-dashboard-left .admin-overview-card {
+    min-height: 120px;
+    padding: 18px 24px;
+}
+.admin-dashboard-left .admin-overview-card strong {
+    margin: 4px 0;
+    font-size: 48px;
+}
+.admin-dashboard-left .admin-shortcuts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    margin: 0;
+}
+.admin-dashboard-left .admin-shortcuts a {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 12px;
+    row-gap: 2px;
+    min-height: 70px;
+    padding: 10px 18px;
+}
+.admin-dashboard-left .admin-shortcuts .shortcut-icon {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    margin: 0;
+}
+.admin-dashboard-left .admin-shortcuts strong {
+    grid-column: 2;
+    grid-row: 1;
+}
+.admin-dashboard-left .admin-shortcuts small {
+    grid-column: 2;
+    grid-row: 2;
+}
+.admin-dashboard-right .admin-walkin-card,
+.admin-dashboard-right .admin-scanner-card {
+    flex: 1;
+}
+.admin-dashboard-right .admin-scanner-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.admin-walkin-card {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--orange);
+    border-radius: 6px;
+    background: var(--surface);
+}
+.admin-walkin-card h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+}
+.admin-walkin-card .card-help {
+    min-height: 40px;
+    margin-bottom: 18px;
+}
+.admin-walkin-card form {
+    display: flex;
+    flex-direction: column;
+}
+.admin-walkin-card label {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.admin-walkin-card input {
+    width: 100%;
+    min-height: 46px;
+    margin-bottom: 14px;
+    padding: 0 12px;
+    border: 1px solid #ded1c5;
+    border-radius: 5px;
+    background: var(--surface);
+    color: var(--brown);
+    font: inherit;
+}
+.admin-walkin-card input:focus {
+    outline: 2px solid #e9803255;
+    border-color: var(--orange);
+}
+.admin-walkin-card .primary-button {
+    min-height: 46px;
+}
+@media (max-width: 800px) {
+    .admin-dashboard-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .admin-dashboard-left .admin-shortcuts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 600px) {
+    .admin-dashboard-left .admin-shortcuts {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .admin-dashboard-right .admin-walkin-card,
+    .admin-dashboard-right .admin-scanner-card {
+        padding: 18px;
+    }
 }

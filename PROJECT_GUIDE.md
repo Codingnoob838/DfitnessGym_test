@@ -36,7 +36,7 @@ The project uses CSS directly from `public/css/app.css`; no npm build is require
 6. Sign in as the member. Confirm that the member dashboard opens.
 7. Verify that a member cannot open the admin dashboard or approve another account. The approval route returns HTTP 403 for non-admin users.
 8. In the admin dashboard, open **Memberships** and assign the Student (₱900) or Regular (₱950) 30-day plan to an approved member. Verify the member dashboard displays the plan and a payment marked **Received**. For renewal, assign the next period after the current one expires.
-9. Open **Attendance** as admin and display the **Gym QR code** at the gym. On the member dashboard, select **Start camera** and scan that code to check in; repeat when leaving to check out. The member camera stops after each successful scan. The admin can still scan a member's personal QR as a fallback: select **Enable sound** once, then the first scan records check-in with a green confirmation and a rising beep. Move the code out of view for three seconds before scanning again to check out with a red confirmation and a falling beep. A third scan that day is rejected. Record a walk-in visitor and verify the history table.
+9. On the admin dashboard, open the QR scanner to scan a member's personal QR code for check-in or check-out. Record a walk-in using the form beside the scanner shortcut; its ₱120 payment is recorded automatically. Open **Attendance** to review registered member and walk-in history.
 10. Open **Payments** as admin. Verify a ₱120 received payment appears for each walk-in and the fixed payment appears for each new membership or renewal. Review the collected totals for today, this week, and this month. The member dashboard shows each payment as **Received**.
 11. Open **Member accounts** as admin. Select **View** to inspect a member's details and membership status. Expired memberships show how many days have passed since expiry. Remove an account and confirm its attendance and payment records remain visible; restore it from the same member list.
 12. Add a mobile number and opt in to SMS on a member dashboard. Create a membership expiring within three days, then use **Queue and send reminders now** in admin **Memberships**. The action queues eligible reminders and submits queued messages when Semaphore is configured. Without gateway credentials, reminders stay queued and no text is sent.
@@ -76,7 +76,7 @@ Add foreign keys and indexes on member IDs and event dates. Keep QR codes as sig
 - `resources/views/auth/`: shared login and registration screens.
 - `resources/views/dashboards/`: current role landing pages.
 - `app/Http/Controllers/MembershipController.php` and `resources/views/memberships/`: membership management.
-- `app/Http/Controllers/AttendanceController.php` and `resources/views/attendance/`: QR and walk-in check-ins.
+- `app/Http/Controllers/AttendanceController.php`, `resources/views/dashboards/admin.blade.php`, and `resources/views/attendance/`: QR check-ins, dashboard walk-in form, and attendance history.
 - `app/Http/Controllers/PaymentController.php` and `resources/views/payments/`: payment records and totals.
 - `app/Http/Controllers/MemberAccountController.php` and `resources/views/members/`: member account management.
 - `app/Services/RenewalReminders.php`, `routes/console.php`, and `resources/views/memberships/`: reminder queue, scheduler, gateway submission, and log within Memberships.

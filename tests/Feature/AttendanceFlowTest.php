@@ -48,8 +48,10 @@ class AttendanceFlowTest extends TestCase
     {
         $admin = User::factory()->create(['role' => 'admin', 'approval_status' => 'approved']);
         $member = User::factory()->create(['role' => 'member', 'approval_status' => 'approved', 'qr_token' => 'inactive-token']);
+        $this->actingAs($admin)->get('/admin/dashboard')->assertOk()->assertSee('Record a walk-in')->assertSee('Open QR code scanner');
+        $this->get('/admin/attendance')->assertOk()->assertDontSee('Record a walk-in');
         $this->actingAs($admin)->post('/admin/attendance/check-in', ['qr_token' => 'DG:inactive-token'])->assertSessionHasErrors('qr_token');
-        $this->post('/admin/attendance/walk-in', ['walk_in_name' => 'Guest Visitor'])->assertRedirect();
+        $this->post('/admin/attendance/walk-in', ['walk_in_name' => 'Guest Visitor'])->assertRedirect('/admin/dashboard');
         $this->assertDatabaseHas('attendance', ['walk_in_name' => 'Guest Visitor', 'method' => 'walk-in']);
         $this->actingAs($member)->post('/admin/attendance/walk-in', ['walk_in_name' => 'Another Guest'])->assertForbidden();
         $this->get('/admin/attendance')->assertForbidden();

@@ -8,7 +8,7 @@
             <div>
                 <p class="kicker">ADMIN WORKSPACE</p>
                 <h1>Daily attendance.</h1>
-                <p>Review attendance and record walk-in visitors.</p>
+                <p>Review registered member and walk-in visits.</p>
             </div>
         </div>
 
@@ -28,32 +28,6 @@
         @endif
 
         <div class="management-grid attendance-management-grid">
-            <section class="management-card">
-                <p class="kicker">VISITOR CHECK-IN</p>
-                <h2>Record a walk-in</h2>
-                <p class="card-help">
-                    Walk-in rate: ₱120.00 per visit. Payment is recorded automatically with the visit.
-                </p>
-
-                <form method="POST" action="{{ route('admin.attendance.walk-in') }}">
-                    @csrf
-
-                    <label for="walk-in-name">Visitor name</label>
-                    <input
-                        id="walk-in-name"
-                        name="walk_in_name"
-                        required
-                        maxlength="255"
-                        value="{{ old('walk_in_name') }}"
-                        placeholder="Full name"
-                    >
-
-                    <button class="primary-button" type="submit">
-                        Record walk-in and payment
-                    </button>
-                </form>
-            </section>
-
             <section class="management-card attendance-history-card">
                 <p class="kicker">ATTENDANCE RECORDS</p>
                 <h2>Attendance history</h2>

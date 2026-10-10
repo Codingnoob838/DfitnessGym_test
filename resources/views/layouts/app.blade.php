@@ -19,7 +19,7 @@
             rel="stylesheet"
             href="https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
         >
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=42">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=48">
     </head>
 
     <body>
